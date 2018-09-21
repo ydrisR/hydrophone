@@ -1,6 +1,11 @@
 package templates_diabeloop
 
-import "github.com/tidepool-org/hydrophone/models"
+import (
+  "fmt"
+  "github.com/tidepool-org/hydrophone/models"
+  "github.com/nicksnyder/go-i18n/i18n"
+)
+
 
 const _PasswordResetSubjectTemplate string = `Password reset for your Tidepool account`
 const _PasswordResetBodyTemplate string = `
@@ -158,7 +163,13 @@ const _PasswordResetBodyTemplate string = `
   </body>
 </html>
 `
-
 func NewPasswordResetTemplate() (models.Template, error) {
+  // Initialisation en choisissant la traduction en français
+  i18n.MustLoadTranslationFile("locales/fr-FR.json")
+  T, _ := i18n.Tfunc("fr-FR")
+
+  // Utilisation de T() pour retourner la traduction à partir d'une clé
+  fmt.Println(T("test"))
+
 	return models.NewPrecompiledTemplate(models.TemplateNamePasswordReset, _PasswordResetSubjectTemplate, _PasswordResetBodyTemplate)
 }

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "test",
+    "translation": "Ceci est la traduction de test"
+  },
+  {
+    "id": "RESET_PASSWORD",
+    "translation": "Réinitialiser votre mot de passe"
+  }
+]
