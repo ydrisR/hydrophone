@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"fmt"
 
 	"github.com/gorilla/mux"
 
@@ -20,6 +21,8 @@ import (
 	"github.com/tidepool-org/hydrophone/api"
 	sc "github.com/tidepool-org/hydrophone/clients"
 	"github.com/tidepool-org/hydrophone/templates"
+	"github.com/tidepool-org/hydrophone/templates_diabeloop"
+
 )
 
 type (
@@ -38,7 +41,8 @@ func main() {
 	if err := common.LoadEnvironmentConfig([]string{"TIDEPOOL_HYDROPHONE_ENV", "TIDEPOOL_HYDROPHONE_SERVICE"}, &config); err != nil {
 		log.Panic("Problem loading config ", err)
 	}
-
+	var templateEnv = os.Getenv("TIDEPOOL_TEMPLATE")
+	log.Printf(templateEnv)
 	/*
 	 * Hakken setup
 	 */
@@ -95,9 +99,21 @@ func main() {
 	mail := sc.NewSesNotifier(&config.Mail)
 
 	emailTemplates, err := templates.New()
+	if templateEnv == "diabeloop" {
+		emailTemplates, err = templates_diabeloop.NewDiabeloop()
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	var content map[string]string
+	content = make(map[string]string)
+	content["WebURL"] = "/test/"
+	content["AssetURL"] = "/testAsset/"
+
+	subject, body, err := emailTemplates["password_reset"].Execute(content)
+	fmt.Printf("%+v\n",subject)
+	fmt.Printf("%+v\n",body)
 
 	rtr := mux.NewRouter()
 	api := api.InitApi(config.Api, store, mail, shoreline, gatekeeper, highwater, seagull, emailTemplates)

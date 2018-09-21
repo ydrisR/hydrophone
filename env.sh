@@ -39,3 +39,5 @@ export TIDEPOOL_HYDROPHONE_SERVICE='{
         "secretKey": "AWS_SECRET"
     }
 }'
+
+export TIDEPOOL_TEMPLATE='diabeloop'
