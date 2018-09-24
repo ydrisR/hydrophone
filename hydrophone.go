@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/gorilla/mux"
+  "github.com/nicksnyder/go-i18n/i18n"
 
 	common "github.com/tidepool-org/go-common"
 	"github.com/tidepool-org/go-common/clients"
@@ -106,6 +107,28 @@ func main() {
 		log.Fatal(err)
 	}
 
+	rtr := mux.NewRouter()
+	api := api.InitApi(config.Api, store, mail, shoreline, gatekeeper, highwater, seagull, emailTemplates)
+	api.SetHandlers("", rtr)
+
+	// Initialisation du type Profile
+	type(
+		Profile struct {
+			Language string  `json:"language"`
+		}
+	)
+	// La variable profile prend la structure de Profile
+	var profile = &Profile{};
+
+	// Recherche le profil depuis un id (973205e169) et rempli la variable profile
+	seagull.GetCollection("973205e169","profile", shoreline.TokenProvide() ,profile)
+
+	// Initialisation en choisissant la traduction
+	i18n.MustLoadTranslationFile("locales/"+profile.Language+".json")
+	T, _ := i18n.Tfunc(profile.Language)
+
+	fmt.Printf("%+v\n",T("test"))
+
 	var content map[string]string
 	content = make(map[string]string)
 	content["WebURL"] = "/test/"
@@ -115,9 +138,6 @@ func main() {
 	fmt.Printf("%+v\n",subject)
 	fmt.Printf("%+v\n",body)
 
-	rtr := mux.NewRouter()
-	api := api.InitApi(config.Api, store, mail, shoreline, gatekeeper, highwater, seagull, emailTemplates)
-	api.SetHandlers("", rtr)
 
 	/*
 	 * Serve it up and publish
