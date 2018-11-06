@@ -6,8 +6,11 @@
         "SignupClinicHello",
         "SignupClinicCongrats",
         "SignupClinicVerify",
-        "SignupClinicOpenSource",
-        "SignupClinicGetSupport"
+        "FooterOpenSource",
+        "FooterGetSupport",
+        "FooterSincerely",
+        "FooterSignature",
+        "FooterMadePossible"
     ],
     "escapeTranslationChunks":[]
 }

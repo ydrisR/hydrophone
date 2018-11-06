@@ -7,8 +7,11 @@
         "SignupCustodialClinicAccount",
         "SignupCustodialClinicOwnership",
         "SignupCustodialClinicClaim",
-        "SignupCustodialClinicOpenSource",
-        "SignupCustodialClinicGetSupport"
+        "FooterOpenSource",
+        "FooterGetSupport",
+        "FooterSincerely",
+        "FooterSignature",
+        "FooterMadePossible"
     ],
     "escapeTranslationChunks":[
         "CreatorName",

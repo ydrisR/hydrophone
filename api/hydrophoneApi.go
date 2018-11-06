@@ -414,9 +414,10 @@ func getAllLocalizationFiles() ([]string, error) {
 	// Walk the folder and add files one by one
 	err := filepath.Walk("templates/locales", func(path string, info os.FileInfo, err error) error {
 		// All files not directory
-		if !info.IsDir() {
+		if !info.IsDir() && filepath.Ext(path) == ".yaml" {
 			files = append(files, path)
 		}
+
 		return nil
 	})
 	// Return all files

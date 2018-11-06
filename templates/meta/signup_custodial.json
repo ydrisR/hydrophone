@@ -7,8 +7,11 @@
         "SignupCustodialAccount",
         "SignupCustodialOwnership",
         "SignupCustodialClaim",
-        "SignupCustodialOpenSource",
-        "SignupCustodialGetSupport"
+        "FooterOpenSource",
+        "FooterGetSupport",
+        "FooterSincerely",
+        "FooterSignature",
+        "FooterMadePossible"
     ],
     "escapeTranslationChunks":[
         "CreatorName",

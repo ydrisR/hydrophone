@@ -6,8 +6,11 @@
         "SignupHello",
         "SignupCongrats",
         "SignupVerify",
-        "SignupOpenSource",
-        "SignupGetSupport"
+        "FooterOpenSource",
+        "FooterGetSupport",
+        "FooterSincerely",
+        "FooterSignature",
+        "FooterMadePossible"
     ],
     "escapeTranslationChunks":[]
 }

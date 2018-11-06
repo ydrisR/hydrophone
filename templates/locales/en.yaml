@@ -1,3 +1,10 @@
+#Footer (for all emails)
+FooterOpenSource: "An open source, not-for-profit effort to build an open data platform and better applications that reduce the burden of diabetes."
+FooterGetSupport: "Get Support"
+FooterSincerely: "Sincerely,"
+FooterSignature: "The Tidepool Team"
+FooterMadePossible: "Made possible by"
+
 # No account
 NoAccountSubject: "Password reset for your Tidepool account"
 NoAccountHello: "Hey there!"
