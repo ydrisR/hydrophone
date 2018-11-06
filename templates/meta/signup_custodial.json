@@ -1,0 +1,17 @@
+{
+    "name":"signup_custodial",
+    "htmlPath":"templates/html/signup_custodial.html",
+    "subject": "SignupCustodialSubject",
+    "contentChunks":[
+        "SignupCustodialHello",
+        "SignupCustodialAccount",
+        "SignupCustodialOwnership",
+        "SignupCustodialClaim",
+        "SignupCustodialOpenSource",
+        "SignupCustodialGetSupport"
+    ],
+    "escapeTranslationChunks":[
+        "CreatorName",
+        "FullName"
+    ]
+}

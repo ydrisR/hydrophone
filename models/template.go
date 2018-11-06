@@ -28,6 +28,8 @@ const (
 type Template interface {
 	Name() TemplateName
 	Execute(content interface{}) (string, string, error)
+	ContentParts() []string
+	EscapeParts() []string
 }
 
 type Templates map[TemplateName]Template
@@ -36,9 +38,12 @@ type PrecompiledTemplate struct {
 	name               TemplateName
 	precompiledSubject *template.Template
 	precompiledBody    *template.Template
+	contentParts       []string
+	subject            string
+	escapeParts        []string
 }
 
-func NewPrecompiledTemplate(name TemplateName, subjectTemplate string, bodyTemplate string) (*PrecompiledTemplate, error) {
+func NewPrecompiledTemplate(name TemplateName, subjectTemplate string, bodyTemplate string, contentParts []string, escapeParts []string) (*PrecompiledTemplate, error) {
 	if name == TemplateNameUndefined {
 		return nil, errors.New("models: name is missing")
 	}
@@ -63,11 +68,27 @@ func NewPrecompiledTemplate(name TemplateName, subjectTemplate string, bodyTempl
 		name:               name,
 		precompiledSubject: precompiledSubject,
 		precompiledBody:    precompiledBody,
+		subject:            subjectTemplate,
+		contentParts:       contentParts,
+		escapeParts:        escapeParts,
 	}, nil
 }
 
+// Name of the template
 func (p *PrecompiledTemplate) Name() TemplateName {
 	return p.name
+}
+
+// The content parts of the template
+// Content parts are the items that are dynamically localized and added in the html tags
+func (p *PrecompiledTemplate) ContentParts() []string {
+	return p.contentParts
+}
+
+// The escape parts of the template
+// These parts are those that are not translated with go-i18n but need to be replaced dynamically by Tidepool engine
+func (p *PrecompiledTemplate) EscapeParts() []string {
+	return p.escapeParts
 }
 
 func (p *PrecompiledTemplate) Execute(content interface{}) (string, string, error) {
@@ -82,5 +103,5 @@ func (p *PrecompiledTemplate) Execute(content interface{}) (string, string, erro
 		return "", "", fmt.Errorf("models: failure to execute body template %s with content", strconv.Quote(p.name.String()))
 	}
 
-	return subjectBuffer.String(), bodyBuffer.String(), nil
+	return p.subject, bodyBuffer.String(), nil
 }

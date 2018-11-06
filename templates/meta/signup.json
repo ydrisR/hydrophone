@@ -1,0 +1,13 @@
+{
+    "name":"signup",
+    "htmlPath":"templates/html/signup.html",
+    "subject": "SignupSubject",
+    "contentChunks":[
+        "SignupHello",
+        "SignupCongrats",
+        "SignupVerify",
+        "SignupOpenSource",
+        "SignupGetSupport"
+    ],
+    "escapeTranslationChunks":[]
+}

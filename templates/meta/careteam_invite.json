@@ -1,0 +1,16 @@
+{
+    "name":"careteam_invite",
+    "htmlPath":"templates/html/careteam_invite.html",
+    "subject": "CareTeamInviteSubject",
+    "contentChunks":[
+        "CareTeamInviteHello",
+        "CareTeamInviteInvitation",
+        "CareTeamInviteClick",
+        "CareTeamInviteJoin",
+        "CareTeamInviteOpenSource",
+        "CareTeamInviteGetSupport"
+    ],
+    "escapeTranslationChunks":[
+        "CareteamName"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name":"signup_clinic",
+    "htmlPath":"templates/html/signup_clinic.html",
+    "subject": "SignupClinicSubject",
+    "contentChunks":[
+        "SignupClinicHello",
+        "SignupClinicCongrats",
+        "SignupClinicVerify",
+        "SignupClinicOpenSource",
+        "SignupClinicGetSupport"
+    ],
+    "escapeTranslationChunks":[]
+}

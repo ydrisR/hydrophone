@@ -1,0 +1,17 @@
+{
+    "name":"signup_custodial_clinic",
+    "htmlPath":"templates/html/signup_custodial_clinic.html",
+    "subject": "SignupCustodialClinicSubject",
+    "contentChunks":[
+        "SignupCustodialClinicHello",
+        "SignupCustodialClinicAccount",
+        "SignupCustodialClinicOwnership",
+        "SignupCustodialClinicClaim",
+        "SignupCustodialClinicOpenSource",
+        "SignupCustodialClinicGetSupport"
+    ],
+    "escapeTranslationChunks":[
+        "CreatorName",
+        "FullName"
+    ]
+}

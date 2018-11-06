@@ -1,10 +1,53 @@
 package templates
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 
 	"github.com/tidepool-org/hydrophone/models"
 )
+
+type TemplateMeta struct {
+	Name                    string   `json:"name"`
+	HTMLPath                string   `json:"htmlPath"`
+	ContentChunks           []string `json:"contentChunks"`
+	Subject                 string   `json:"subject"`
+	EscapeTranslationChunks []string `json:"escapeTranslationChunks"`
+}
+
+// GetTemplateMeta returns the template metadata
+// Metadata are information that relate to a template (e.g. name, htmlPath...)
+// Inputs:
+// metaFileName = name of the file with no path and no json extension, assuming the file is located in templates/meta
+func GetTemplateMeta(metaFileName string) TemplateMeta {
+	// Open the jsonFile
+	jsonFile, err := os.Open("templates/meta/" + metaFileName + ".json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// defer the closing of our jsonFile so that we can parse it later on
+	defer jsonFile.Close()
+
+	// read the opened xmlFile as a byte array.
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var meta TemplateMeta
+
+	// we unmarshal our byteArray which contains our
+	// jsonFile's content into 'users' which we defined above
+	json.Unmarshal(byteValue, &meta)
+
+	return meta
+}
+
+// GetBody returns the email body corresponding to the template requested
+func GetBody(t string) string {
+	dat, _ := ioutil.ReadFile(t)
+	return string(dat)
+}
 
 func New() (models.Templates, error) {
 	templates := models.Templates{}

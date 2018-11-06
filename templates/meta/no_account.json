@@ -1,0 +1,14 @@
+{
+    "name":"no_account",
+    "htmlPath":"templates/html/no_account.html",
+    "subject": "NoAccountSubject",
+    "contentChunks":[
+        "NoAccountHello",
+        "NoAccountNoAccount",
+        "NoAccountClick",
+        "NoAccountSignUp",
+        "NoAccountOpenSource",
+        "NoAccountGetSupport"
+    ],
+    "escapeTranslationChunks":[]
+}
