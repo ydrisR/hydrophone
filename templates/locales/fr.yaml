@@ -1,0 +1,55 @@
+# Footer (for all emails)
+FooterOpenSource: "Un projet open source, non profitable, pour construire une plateforme et des applications qui réduisent le fardeau du diabète."
+FooterGetSupport: "Contacter le support"
+FooterSincerely: "Cordialement,"
+FooterSignature: "L'équipe Tidepool"
+FooterMadePossible: "Rendu possible grâce à"
+
+# No account
+NoAccountSubject: "Réinitialisation de votre mot de passe Tidepool"
+NoAccountHello: "Bonjour,"
+NoAccountNoAccount: "Nous nous sommes laissés dire que vous vouliez réinitialiser votre mot de passe Tidepool. Mais il n'existe pas de compte pour cette adresse email."
+NoAccountClick: "Veuillez cliquer sur le lien ci-dessous si vous voulez créer un compte."
+NoAccountSignUp: "M'enregistrer"
+
+
+# Password Reset
+PasswordResetSubject: "Réinitialisation de votre mot de passe Tidepool"
+PasswordResetHello: "Bonjour,"
+PasswordResetRequest: "Vous avez demandé une réinitialisation de votre mot de passe Tidepool."
+PasswordResetDidNotRequest: "Si vous n'êtes pas à l'origine de cette demande, merci d'ignorer cet email."
+PasswordResetOtherwise: "Sinon, veuillez cliquer sur le lien ci-dessous."
+PasswordResetClick: "Réinitialiser mon mot de passe"
+
+# CareTeamInvite
+CareTeamInviteSubject: "Invitation à rejoindre une équipe de suivi d'un diabétique"
+CareTeamInviteHello: "Bonjour,"
+CareTeamInviteInvitation: "{{ .CareteamName }} vous a invité à rejoindre son équipe de suivi."
+CareTeamInviteClick: "Veuillez cliquer sur le lien ci-dessous pour accepter et voir les données de {{ .CareteamName }}."
+CareTeamInviteJoin: "Réjoindre l'équipe de {{ .CareteamName }}"
+
+# Signup
+SignupSubject: "Vérification de votre compte Tidepool"
+SignupHello: "Bonjour,"
+SignupCongrats: "Félicitations pour la création de votre compte Tidepool!"
+SignupVerify: "Vérifier mon compte"
+
+# Signup Clinic
+SignupClinicSubject: "Vérification de votre compte Tidepool"
+SignupClinicHello: "Bonjour,"
+SignupClinicCongrats: "Félicitations pour la création de votre compte Tidepool!"
+SignupClinicVerify: "Vérifier mon compte"
+
+# Signup Custodial
+SignupCustodialSubject: "Suivi Diabète - Réclamer votre compte"
+SignupCustodialHello: "Bonjour {{ .FullName }}!"
+SignupCustodialAccount: "{{ .CreatorName }} a créé pour vous un compte Tidepool pour que vous puissiez visualiser vos données de diabète."
+SignupCustodialOwnership: "Vous pouvez réclamer votre compte gratuit pour voir et charger vos données depuis la maison."
+SignupCustodialClaim: "Réclamer mon compte"
+
+# Signup Custodial Clinic
+SignupCustodialClinicSubject: "Suivi Diabète - Réclamer votre compte"
+SignupCustodialClinicHello: "Bonjour {{ .FullName }}!"
+SignupCustodialClinicAccount: "{{ .CreatorName }} a créé pour vous un compte Tidepool pour que vous puissiez visualiser vos données de diabète."
+SignupCustodialClinicOwnership: "Vous pouvez réclamer votre compte gratuit pour voir et charger vos données depuis la maison."
+SignupCustodialClinicClaim: "Réclamer mon compte"
