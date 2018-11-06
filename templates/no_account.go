@@ -7,7 +7,7 @@ import (
 func NewNoAccountTemplate() (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = GetTemplateMeta("no_account")
+	var templateMeta = getTemplateMeta("no_account")
 
-	return models.NewPrecompiledTemplate(models.TemplateNameNoAccount, templateMeta.Subject, GetBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNameNoAccount, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

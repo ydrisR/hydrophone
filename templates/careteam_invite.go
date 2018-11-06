@@ -7,7 +7,7 @@ import (
 func NewCareteamInviteTemplate() (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = GetTemplateMeta("careteam_invite")
+	var templateMeta = getTemplateMeta("careteam_invite")
 
-	return models.NewPrecompiledTemplate(models.TemplateNameCareteamInvite, templateMeta.Subject, GetBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNameCareteamInvite, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

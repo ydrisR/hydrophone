@@ -5,7 +5,7 @@ import "github.com/tidepool-org/hydrophone/models"
 func NewSignupCustodialTemplate() (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = GetTemplateMeta("signup_custodial")
+	var templateMeta = getTemplateMeta("signup_custodial")
 
-	return models.NewPrecompiledTemplate(models.TemplateNameSignupCustodial, templateMeta.Subject, GetBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNameSignupCustodial, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

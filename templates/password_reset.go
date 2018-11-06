@@ -6,7 +6,7 @@ import "github.com/tidepool-org/hydrophone/models"
 func NewPasswordResetTemplate() (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = GetTemplateMeta("password_reset")
+	var templateMeta = getTemplateMeta("password_reset")
 
-	return models.NewPrecompiledTemplate(models.TemplateNamePasswordReset, templateMeta.Subject, GetBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNamePasswordReset, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

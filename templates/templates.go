@@ -17,11 +17,11 @@ type TemplateMeta struct {
 	EscapeTranslationChunks []string `json:"escapeTranslationChunks"`
 }
 
-// GetTemplateMeta returns the template metadata
+// getTemplateMeta returns the template metadata
 // Metadata are information that relate to a template (e.g. name, htmlPath...)
 // Inputs:
 // metaFileName = name of the file with no path and no json extension, assuming the file is located in templates/meta
-func GetTemplateMeta(metaFileName string) TemplateMeta {
+func getTemplateMeta(metaFileName string) TemplateMeta {
 	// Open the jsonFile
 	jsonFile, err := os.Open("templates/meta/" + metaFileName + ".json")
 	if err != nil {
@@ -43,8 +43,8 @@ func GetTemplateMeta(metaFileName string) TemplateMeta {
 	return meta
 }
 
-// GetBody returns the email body corresponding to the template requested
-func GetBody(t string) string {
+// getBody returns the email body corresponding to the template requested
+func getBody(t string) string {
 	dat, _ := ioutil.ReadFile(t)
 	return string(dat)
 }
