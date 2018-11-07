@@ -103,5 +103,5 @@ func (p *PrecompiledTemplate) Execute(content interface{}) (string, string, erro
 		return "", "", fmt.Errorf("models: failure to execute body template %s with content", strconv.Quote(p.name.String()))
 	}
 
-	return p.subject, bodyBuffer.String(), nil
+	return subjectBuffer.String(), bodyBuffer.String(), nil
 }
