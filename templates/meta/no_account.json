@@ -1,6 +1,7 @@
 {
-    "name":"no_account",
-    "htmlPath":"templates/html/no_account.html",
+    "name": "no_account",
+    "description": "email for those that requested password reset but did not create their account before",
+    "htmlPath": "templates/html/no_account.html",
     "subject": "NoAccountSubject",
     "contentChunks":[
         "NoAccountHello",

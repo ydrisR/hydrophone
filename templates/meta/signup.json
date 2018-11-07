@@ -1,6 +1,7 @@
 {
-    "name":"signup",
-    "htmlPath":"templates/html/signup.html",
+    "name": "signup",
+    "description": "email to ask patient for verification of email",
+    "htmlPath": "templates/html/signup.html",
     "subject": "SignupSubject",
     "contentChunks":[
         "SignupHello",

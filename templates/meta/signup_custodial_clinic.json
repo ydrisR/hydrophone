@@ -1,6 +1,7 @@
 {
-    "name":"signup_custodial_clinic",
-    "htmlPath":"templates/html/signup_custodial_clinic.html",
+    "name": "signup_custodial_clinic",
+    "description": "email to ask clinician spawn by an existing clinician for verification of email and take ownership of his account",
+    "htmlPath": "templates/html/signup_custodial_clinic.html",
     "subject": "SignupCustodialClinicSubject",
     "contentChunks":[
         "SignupCustodialClinicHello",

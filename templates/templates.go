@@ -11,6 +11,7 @@ import (
 
 type TemplateMeta struct {
 	Name                    string   `json:"name"`
+	Description             string   `json:"description"`
 	HTMLPath                string   `json:"htmlPath"`
 	ContentChunks           []string `json:"contentChunks"`
 	Subject                 string   `json:"subject"`

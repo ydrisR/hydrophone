@@ -1,11 +1,13 @@
-#Footer (for all emails)
+# Footer 
+# (for all emails)
 FooterOpenSource: "An open source, not-for-profit effort to build an open data platform and better applications that reduce the burden of diabetes."
 FooterGetSupport: "Get Support"
 FooterSincerely: "Sincerely,"
 FooterSignature: "The Tidepool Team"
 FooterMadePossible: "Made possible by"
 
-# No account
+# No account 
+# (email for those that requested password reset but did not create their account before)
 NoAccountSubject: "Password reset for your Tidepool account"
 NoAccountHello: "Hey there!"
 NoAccountNoAccount: "We heard you would like to reset your Tidepool password but no account has been created yet for your email address."
@@ -15,6 +17,7 @@ NoAccountOpenSource: "An open source, not-for-profit effort to build an open dat
 NoAccountGetSupport: "Get Support"
 
 # Password Reset
+# (email for those that requested password reset)
 PasswordResetSubject: "Password reset for your Tidepool account"
 PasswordResetHello: "Hey there!"
 PasswordResetRequest: "You requested a password reset."
@@ -25,6 +28,7 @@ PasswordResetOpenSource: "An open source, not-for-profit effort to build an open
 PasswordResetGetSupport: "Get Support"
 
 # CareTeamInvite
+# (email for those that invited someone to join medical crew)
 CareTeamInviteSubject: "Diabetes care team invitation"
 CareTeamInviteHello: "Hey there!"
 CareTeamInviteInvitation: "{{ .CareteamName }} invited you to be on their care team."
@@ -34,6 +38,7 @@ CareTeamInviteOpenSource: "An open source, not-for-profit effort to build an ope
 CareTeamInviteGetSupport: "Get Support"
 
 # Signup
+# (email to ask patient for verification of email)
 SignupSubject: "Verify your Tidepool account"
 SignupHello: "Hey there!"
 SignupCongrats: "Congrats on creating your Tidepool account!"
@@ -42,6 +47,7 @@ SignupOpenSource: "An open source, not-for-profit effort to build an open data p
 SignupGetSupport: "Get Support"
 
 # Signup Clinic
+# (email to ask clinician for verification of email)
 SignupClinicSubject: "Verify your Tidepool account"
 SignupClinicHello: "Hey there!"
 SignupClinicCongrats: "Congrats on creating your Tidepool account!"
@@ -50,6 +56,7 @@ SignupClinicOpenSource: "An open source, not-for-profit effort to build an open 
 SignupClinicGetSupport: "Get Support"
 
 # Signup Custodial
+# (email to ask patient spawn by an existing clinician for verification of email and take ownership of his account)
 SignupCustodialSubject: "Diabetes Clinic Follow Up - Claim Your Account"
 SignupCustodialHello: "Hi, {{ .FullName }}!"
 SignupCustodialAccount: "{{ .CreatorName }} created a Tidepool account for your diabetes device data."
@@ -59,6 +66,7 @@ SignupCustodialOpenSource: "An open source, not-for-profit effort to build an op
 SignupCustodialGetSupport: "Get Support"
 
 # Signup Custodial Clinic
+# (email to ask clinician spawn by an existing clinician for verification of email and take ownership of his account)
 SignupCustodialClinicSubject: "Diabetes Clinic Follow Up - Claim Your Account"
 SignupCustodialClinicHello: "Hi, {{ .FullName }}!"
 SignupCustodialClinicAccount: "{{ .CreatorName }} created a Tidepool account for your diabetes device data."

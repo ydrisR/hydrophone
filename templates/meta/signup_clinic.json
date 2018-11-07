@@ -1,6 +1,7 @@
 {
-    "name":"signup_clinic",
-    "htmlPath":"templates/html/signup_clinic.html",
+    "name": "signup_clinic",
+    "description": "email to ask clinician for verification of email",
+    "htmlPath": "templates/html/signup_clinic.html",
     "subject": "SignupClinicSubject",
     "contentChunks":[
         "SignupClinicHello",
