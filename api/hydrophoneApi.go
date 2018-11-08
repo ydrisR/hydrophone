@@ -6,8 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
-	"path/filepath"
 	"reflect"
 	"runtime"
 	"strings"
@@ -410,18 +408,19 @@ func (a *Api) tokenUserHasRequestedPermissions(tokenData *shoreline.TokenData, g
 // Add yaml file to this folder to get a language added
 // At least en.yaml should be present
 func getAllLocalizationFiles() ([]string, error) {
-	var files []string
-	// Walk the folder and add files one by one
-	err := filepath.Walk("templates/locales", func(path string, info os.FileInfo, err error) error {
-		// All files not directory
-		if !info.IsDir() && filepath.Ext(path) == ".yaml" {
-			files = append(files, path)
-		}
+	var dir = "templates/locales/"
+	var retFiles []string
+	files, err := ioutil.ReadDir(dir)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-		return nil
-	})
-	// Return all files
-	return files, err
+	for _, file := range files {
+		if !file.IsDir() {
+			retFiles = append(retFiles, dir+file.Name())
+		}
+	}
+	return retFiles, nil
 }
 
 // initI18n initializes the internationalization objects needed by the application
