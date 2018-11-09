@@ -29,7 +29,7 @@ PasswordResetGetSupport: "Get Support"
 
 # CareTeamInvite
 # (email for those that invited someone to join medical crew)
-CareTeamInviteSubject: "Diabetes care team invitation"
+CareTeamInvitationSubject: "Diabetes care team invitation"
 CareTeamInviteHello: "Hey there!"
 CareTeamInviteInvitation: "{{ .CareteamName }} invited you to be on their care team."
 CareTeamInviteClick: "Please click the link below to accept and see {{ .CareteamName }}'s data."
@@ -39,7 +39,7 @@ CareTeamInviteGetSupport: "Get Support"
 
 # Signup
 # (email to ask patient for verification of email)
-SignupSubject: "Verify your Tidepool account"
+SignupConfirmationSubject: "Verify your Tidepool account"
 SignupHello: "Hey there!"
 SignupCongrats: "Congrats on creating your Tidepool account!"
 SignupVerify: "Verify Your Account"
@@ -48,7 +48,7 @@ SignupGetSupport: "Get Support"
 
 # Signup Clinic
 # (email to ask clinician for verification of email)
-SignupClinicSubject: "Verify your Tidepool account"
+SignupClinicConfirmationSubject: "Verify your Tidepool account"
 SignupClinicHello: "Hey there!"
 SignupClinicCongrats: "Congrats on creating your Tidepool account!"
 SignupClinicVerify: "Verify Your Account"
@@ -57,7 +57,7 @@ SignupClinicGetSupport: "Get Support"
 
 # Signup Custodial
 # (email to ask patient spawn by an existing clinician for verification of email and take ownership of his account)
-SignupCustodialSubject: "Diabetes Clinic Follow Up - Claim Your Account"
+SignupCustodialConfirmationSubject: "Diabetes Clinic Follow Up - Claim Your Account"
 SignupCustodialHello: "Hi, {{ .FullName }}!"
 SignupCustodialAccount: "{{ .CreatorName }} created a Tidepool account for your diabetes device data."
 SignupCustodialOwnership: "You can take ownership of your free account to view and upload data from home."
@@ -67,7 +67,7 @@ SignupCustodialGetSupport: "Get Support"
 
 # Signup Custodial Clinic
 # (email to ask clinician spawn by an existing clinician for verification of email and take ownership of his account)
-SignupCustodialClinicSubject: "Diabetes Clinic Follow Up - Claim Your Account"
+SignupCustodialClinicConfirmationSubject: "Diabetes Clinic Follow Up - Claim Your Account"
 SignupCustodialClinicHello: "Hi, {{ .FullName }}!"
 SignupCustodialClinicAccount: "{{ .CreatorName }} created a Tidepool account for your diabetes device data."
 SignupCustodialClinicOwnership: "You can take ownership of your free account to view and upload data from home."

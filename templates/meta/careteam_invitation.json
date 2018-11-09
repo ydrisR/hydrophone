@@ -1,8 +1,8 @@
 {
-    "name": "careteam_invite",
+    "name": "careteam_invitation",
     "description": "email for those that invited someone to join medical crew",
-    "htmlPath": "templates/html/careteam_invite.html",
-    "subject": "CareTeamInviteSubject",
+    "templateFilename": "careteam_invitation.html",
+    "subject": "CareTeamInvitationSubject",
     "contentChunks":[
         "CareTeamInviteHello",
         "CareTeamInviteInvitation",

@@ -36,9 +36,10 @@ type (
 		LanguageBundle *i18n.Bundle
 	}
 	Config struct {
-		ServerSecret string `json:"serverSecret"` //used for services
-		WebURL       string `json:"webUrl"`
-		AssetURL     string `json:"assetUrl"`
+		ServerSecret                      string `json:"serverSecret"` //used for services
+		WebURL                            string `json:"webUrl"`
+		AssetURL                          string `json:"assetUrl"`
+		InternationalizationTemplatesPath string `json:"internationalizationTemplatesPath"`
 	}
 
 	group struct {
@@ -78,8 +79,6 @@ func InitApi(
 	seagull commonClients.Seagull,
 	templates models.Templates,
 ) *Api {
-	locBundle := initI18n()
-
 	return &Api{
 		Store:          store,
 		Config:         cfg,
@@ -89,7 +88,7 @@ func InitApi(
 		metrics:        metrics,
 		seagull:        seagull,
 		templates:      templates,
-		LanguageBundle: locBundle,
+		LanguageBundle: nil,
 	}
 }
 
@@ -221,6 +220,7 @@ func (a *Api) checkFoundConfirmations(res http.ResponseWriter, results []*models
 func (a *Api) createAndSendNotification(conf *models.Confirmation, content map[string]interface{}) bool {
 
 	lang := getUserLanguage(conf, a)
+	log.Printf("sending notification with template %s to %s with language %s", conf.TemplateName, conf.Email, lang)
 
 	// Get the template name based on the requested communication type
 	templateName := conf.TemplateName
@@ -404,45 +404,50 @@ func (a *Api) tokenUserHasRequestedPermissions(tokenData *shoreline.TokenData, g
 	}
 }
 
-// getAllLocalizationFiles returns all the filenames within the templates/locales folder
-// Add yaml file to this folder to get a language added
-// At least en.yaml should be present
-func getAllLocalizationFiles() ([]string, error) {
-	var dir = "templates/locales/"
-	var retFiles []string
-	files, err := ioutil.ReadDir(dir)
-	if err != nil {
-		log.Fatal(err)
-	}
+// InitI18n initializes the internationalization objects needed by the api
+// Ensure at least en.yaml is present in the folder specified by TIDEPOOL_HYDROPHONE_SERVICE environment variable
+func (a *Api) InitI18n(templatesPath string) {
 
-	for _, file := range files {
-		if !file.IsDir() {
-			retFiles = append(retFiles, dir+file.Name())
-		}
-	}
-	return retFiles, nil
-}
-
-// initI18n initializes the internationalization objects needed by the application
-// Ensure at least en.yaml is present in the "templates/locales" folder
-func initI18n() *i18n.Bundle {
 	// Get all the language files that exist
-	langFiles, err := getAllLocalizationFiles()
+	langFiles, err := getAllLocalizationFiles(templatesPath)
 
 	if err != nil {
-		fmt.Errorf("Error getting translation files, %v", err)
-		panic(err)
+		log.Printf("Error getting translation files, %v", err)
 	}
 
 	// Create a Bundle to use for the lifetime of your application
 	locBundle, err := createLocalizerBundle(langFiles)
 
 	if err != nil {
-		fmt.Errorf("Error initialising localization, %v", err)
-		panic(err)
+		log.Printf("Error initialising localization, %v", err)
+	} else {
+		log.Printf("Localizer bundle created with default language: %s", locBundle.DefaultLanguage.String())
 	}
 
-	return locBundle
+	a.LanguageBundle = locBundle
+}
+
+// getAllLocalizationFiles returns all the filenames within the folder specified by the TIDEPOOL_HYDROPHONE_SERVICE environment variable
+// Add yaml file to this folder to get a language added
+// At least en.yaml should be present
+func getAllLocalizationFiles(templatesPath string) ([]string, error) {
+
+	var dir = templatesPath + "/locales/"
+	log.Printf("getting localization files from %s", dir)
+	var retFiles []string
+	files, err := ioutil.ReadDir(dir)
+	if err != nil {
+		log.Printf("Can't read directory %s", dir)
+		return nil, err
+	}
+
+	for _, file := range files {
+		if !file.IsDir() {
+			log.Printf("Found localization file %s", dir+file.Name())
+			retFiles = append(retFiles, dir+file.Name())
+		}
+	}
+	return retFiles, nil
 }
 
 // createLocalizerBundle reads language files and registers them in i18n bundle

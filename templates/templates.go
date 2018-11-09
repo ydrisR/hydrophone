@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 
 	"github.com/tidepool-org/hydrophone/models"
@@ -12,19 +13,21 @@ import (
 type TemplateMeta struct {
 	Name                    string   `json:"name"`
 	Description             string   `json:"description"`
-	HTMLPath                string   `json:"htmlPath"`
+	TemplateFilename        string   `json:"templateFilename"`
 	ContentChunks           []string `json:"contentChunks"`
 	Subject                 string   `json:"subject"`
 	EscapeTranslationChunks []string `json:"escapeTranslationChunks"`
 }
 
 // getTemplateMeta returns the template metadata
-// Metadata are information that relate to a template (e.g. name, htmlPath...)
+// Metadata are information that relate to a template (e.g. name, templateFilename...)
 // Inputs:
-// metaFileName = name of the file with no path and no json extension, assuming the file is located in templates/meta
+// metaFileName = name of the file with no path and no json extension, assuming the file is located in path specified in TIDEPOOL_HYDROPHONE_SERVICE environment variable
 func getTemplateMeta(metaFileName string) TemplateMeta {
+	log.Printf("getting template meta from %s", metaFileName)
+
 	// Open the jsonFile
-	jsonFile, err := os.Open("templates/meta/" + metaFileName + ".json")
+	jsonFile, err := os.Open(metaFileName)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -44,52 +47,57 @@ func getTemplateMeta(metaFileName string) TemplateMeta {
 	return meta
 }
 
-// getBody returns the email body corresponding to the template requested
-func getBody(t string) string {
-	dat, _ := ioutil.ReadFile(t)
-	return string(dat)
+// getBody returns the email body from the file which name is in input parameter
+func getBody(fileName string) string {
+
+	data, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		log.Printf("templates - failure to get template body: %s", err)
+	}
+	log.Printf("getting template body from %s", fileName)
+	return string(data)
 }
 
-func New() (models.Templates, error) {
+func New(templatesPath string) (models.Templates, error) {
 	templates := models.Templates{}
 
-	if template, err := NewCareteamInviteTemplate(); err != nil {
+	if template, err := NewCareteamInviteTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create careteam invite template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewNoAccountTemplate(); err != nil {
+	if template, err := NewNoAccountTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create no account template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewPasswordResetTemplate(); err != nil {
+	if template, err := NewPasswordResetTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create password reset template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewSignupTemplate(); err != nil {
+	if template, err := NewSignupTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create signup template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewSignupClinicTemplate(); err != nil {
+	if template, err := NewSignupClinicTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create signup clinic template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewSignupCustodialTemplate(); err != nil {
+	if template, err := NewSignupCustodialTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create signup custodial template: %s", err)
 	} else {
 		templates[template.Name()] = template
 	}
 
-	if template, err := NewSignupCustodialClinicTemplate(); err != nil {
+	if template, err := NewSignupCustodialClinicTemplate(templatesPath); err != nil {
 		return nil, fmt.Errorf("templates: failure to create signup custodial clinic template: %s", err)
 	} else {
 		templates[template.Name()] = template

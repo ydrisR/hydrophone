@@ -1,11 +1,14 @@
 package templates
 
-import "github.com/tidepool-org/hydrophone/models"
+import (
+	"github.com/tidepool-org/hydrophone/models"
+)
 
-func NewSignupTemplate() (models.Template, error) {
+func NewSignupTemplate(templatesPath string) (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = getTemplateMeta("signup")
+	var templateMeta = getTemplateMeta(templatesPath + "/meta/signup_confirmation.json")
+	var templateFileName = templatesPath + "/html/" + templateMeta.TemplateFilename
 
-	return models.NewPrecompiledTemplate(models.TemplateNameSignup, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNameSignup, templateMeta.Subject, getBody(templateFileName), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

@@ -35,6 +35,7 @@ type (
 func main() {
 	var config Config
 
+	// Load configuration from environment variables
 	if err := common.LoadEnvironmentConfig([]string{"TIDEPOOL_HYDROPHONE_ENV", "TIDEPOOL_HYDROPHONE_SERVICE"}, &config); err != nil {
 		log.Panic("Problem loading config ", err)
 	}
@@ -94,7 +95,10 @@ func main() {
 	store := sc.NewMongoStoreClient(&config.Mongo)
 	mail := sc.NewSesNotifier(&config.Mail)
 
-	emailTemplates, err := templates.New()
+	// Create collection of pre-compiled templates
+	// Templates are built based on HTML files which location is calculated from config
+	// Config is initalized with environment variables
+	emailTemplates, err := templates.New(config.Api.InternationalizationTemplatesPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -102,6 +106,7 @@ func main() {
 	rtr := mux.NewRouter()
 	api := api.InitApi(config.Api, store, mail, shoreline, gatekeeper, highwater, seagull, emailTemplates)
 	api.SetHandlers("", rtr)
+	api.InitI18n(config.Api.InternationalizationTemplatesPath)
 
 	/*
 	 * Serve it up and publish

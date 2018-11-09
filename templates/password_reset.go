@@ -3,10 +3,11 @@ package templates
 import "github.com/tidepool-org/hydrophone/models"
 
 // NewPasswordResetTemplate sends template
-func NewPasswordResetTemplate() (models.Template, error) {
+func NewPasswordResetTemplate(templatesPath string) (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = getTemplateMeta("password_reset")
+	var templateMeta = getTemplateMeta(templatesPath + "/meta/password_reset.json")
+	var templateFileName = templatesPath + "/html/" + templateMeta.TemplateFilename
 
-	return models.NewPrecompiledTemplate(models.TemplateNamePasswordReset, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNamePasswordReset, templateMeta.Subject, getBody(templateFileName), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }

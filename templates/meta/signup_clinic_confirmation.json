@@ -1,8 +1,8 @@
 {
-    "name": "signup_clinic",
+    "name": "signup_clinic_confirmation",
     "description": "email to ask clinician for verification of email",
-    "htmlPath": "templates/html/signup_clinic.html",
-    "subject": "SignupClinicSubject",
+    "templateFilename": "signup_clinic_confirmation.html",
+    "subject": "SignupClinicConfirmationSubject",
     "contentChunks":[
         "SignupClinicHello",
         "SignupClinicCongrats",

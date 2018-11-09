@@ -4,10 +4,11 @@ import (
 	"github.com/tidepool-org/hydrophone/models"
 )
 
-func NewNoAccountTemplate() (models.Template, error) {
+func NewNoAccountTemplate(templatesPath string) (models.Template, error) {
 
 	// Get template Metadata
-	var templateMeta = getTemplateMeta("no_account")
+	var templateMeta = getTemplateMeta(templatesPath + "/meta/no_account.json")
+	var templateFileName = templatesPath + "/html/" + templateMeta.TemplateFilename
 
-	return models.NewPrecompiledTemplate(models.TemplateNameNoAccount, templateMeta.Subject, getBody(templateMeta.HTMLPath), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
+	return models.NewPrecompiledTemplate(models.TemplateNameNoAccount, templateMeta.Subject, getBody(templateFileName), templateMeta.ContentChunks, templateMeta.EscapeTranslationChunks)
 }
