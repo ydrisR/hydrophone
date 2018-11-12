@@ -140,7 +140,7 @@ func getAllLocalizationFiles(templatesPath string) ([]string, error) {
 	}
 
 	for _, file := range files {
-		if !file.IsDir() {
+		if !file.IsDir() && file.Name() != "test.en.yaml" {
 			log.Printf("Found localization file %s", dir+file.Name())
 			retFiles = append(retFiles, dir+file.Name())
 		}
