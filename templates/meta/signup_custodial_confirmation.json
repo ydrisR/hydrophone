@@ -1,0 +1,21 @@
+{
+    "name": "signup_custodial_confirmation",
+    "description": "email to ask patient spawn by an existing clinician for verification of email and take ownership of his account",
+    "templateFilename": "signup_custodial_confirmation.html",
+    "subject": "SignupCustodialConfirmationSubject",
+    "contentChunks":[
+        "SignupCustodialHello",
+        "SignupCustodialAccount",
+        "SignupCustodialOwnership",
+        "SignupCustodialClaim",
+        "FooterOpenSource",
+        "FooterGetSupport",
+        "FooterSincerely",
+        "FooterSignature",
+        "FooterMadePossible"
+    ],
+    "escapeTranslationChunks":[
+        "CreatorName",
+        "FullName"
+    ]
+}

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
 
 	commonClients "github.com/tidepool-org/go-common/clients"
 	"github.com/tidepool-org/go-common/clients/highwater"
@@ -21,19 +22,21 @@ import (
 
 type (
 	Api struct {
-		Store      clients.StoreClient
-		notifier   clients.Notifier
-		templates  models.Templates
-		sl         shoreline.Client
-		gatekeeper commonClients.Gatekeeper
-		seagull    commonClients.Seagull
-		metrics    highwater.Client
-		Config     Config
+		Store          clients.StoreClient
+		notifier       clients.Notifier
+		templates      models.Templates
+		sl             shoreline.Client
+		gatekeeper     commonClients.Gatekeeper
+		seagull        commonClients.Seagull
+		metrics        highwater.Client
+		Config         Config
+		LanguageBundle *i18n.Bundle
 	}
 	Config struct {
-		ServerSecret string `json:"serverSecret"` //used for services
-		WebURL       string `json:"webUrl"`
-		AssetURL     string `json:"assetUrl"`
+		ServerSecret                      string `json:"serverSecret"` //used for services
+		WebURL                            string `json:"webUrl"`
+		AssetURL                          string `json:"assetUrl"`
+		InternationalizationTemplatesPath string `json:"internationalizationTemplatesPath"`
 	}
 
 	group struct {
@@ -74,14 +77,15 @@ func InitApi(
 	templates models.Templates,
 ) *Api {
 	return &Api{
-		Store:      store,
-		Config:     cfg,
-		notifier:   ntf,
-		sl:         sl,
-		gatekeeper: gatekeeper,
-		metrics:    metrics,
-		seagull:    seagull,
-		templates:  templates,
+		Store:          store,
+		Config:         cfg,
+		notifier:       ntf,
+		sl:             sl,
+		gatekeeper:     gatekeeper,
+		metrics:        metrics,
+		seagull:        seagull,
+		templates:      templates,
+		LanguageBundle: nil,
 	}
 }
 
@@ -211,6 +215,11 @@ func (a *Api) checkFoundConfirmations(res http.ResponseWriter, results []*models
 
 //Generate a notification from the given confirmation,write the error if it fails
 func (a *Api) createAndSendNotification(conf *models.Confirmation, content map[string]interface{}) bool {
+
+	lang := getUserLanguage(conf, a)
+	log.Printf("sending notification with template %s to %s with language %s", conf.TemplateName, conf.Email, lang)
+
+	// Get the template name based on the requested communication type
 	templateName := conf.TemplateName
 	if templateName == models.TemplateNameUndefined {
 		switch conf.Type {
@@ -228,21 +237,32 @@ func (a *Api) createAndSendNotification(conf *models.Confirmation, content map[s
 		}
 	}
 
+	// Content collection is here to replace placeholders in template body/content
 	content["WebURL"] = a.Config.WebURL
 	content["AssetURL"] = a.Config.AssetURL
 
+	// Retrieve the template from all the preloaded templates
 	template, ok := a.templates[templateName]
 	if !ok {
 		log.Printf("Unknown template type %s", templateName)
 		return false
 	}
 
-	subject, body, err := template.Execute(content)
+	// Add dynamic content to the template
+	fillTemplate(template, a.LanguageBundle, lang, content)
+
+	// Email information (subject and body) are retrieved from the "executed" email template
+	// "Execution" adds dynamic content using text/template lib
+	_, body, err := template.Execute(content)
+
 	if err != nil {
 		log.Printf("Error executing email template %s", err)
 		return false
 	}
+	// Get localized subject of email
+	subject, err := getLocalizedSubject(a.LanguageBundle, template.Subject(), lang)
 
+	// Finally send the email
 	if status, details := a.notifier.Send([]string{conf.Email}, subject, body); status != http.StatusOK {
 		log.Printf("Issue sending email: Status [%d] Message [%s]", status, details)
 		return false
