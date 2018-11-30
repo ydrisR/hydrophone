@@ -3,15 +3,19 @@ package api
 import (
 	"testing"
 
+	"github.com/tidepool-org/hydrophone/models"
 	templates "github.com/tidepool-org/hydrophone/templates"
 )
 
+const TestCreatorName = "Chuck Norris"
+
 const (
-	expectedSubject = "This email is here for testing purposes."                                                                                              // The subject we expect to find after compilation and localization
-	expectedBody    = "<html><header><title>Test Template. Please keep this file in this folder.</title></header><body>This is a test content.</body></html>" // The HTML body we expect to find after compilation and localization
-	locale          = "en"
-	templatesPath   = "../templates"
-	langFile        = "../templates/locales/test.en.yaml"
+	expectedLocalizedContent = "This is a test content created by " + TestCreatorName + "."
+	expectedSubject          = "This email is here for testing purposes."                                                                                                                                 // The subject we expect to find after compilation and localization
+	expectedBody             = "<html><header><title>Test Template. Please keep this file in this folder.</title></header><body>This is a test content created by " + TestCreatorName + ".</body></html>" // The HTML body we expect to find after compilation and localization
+	locale                   = "en"
+	templatesPath            = "../templates"
+	langFile                 = "../templates/locales/test.en.yaml"
 )
 
 func Test_CreateLocalizerBundle(t *testing.T) {
@@ -25,7 +29,6 @@ func Test_CreateLocalizerBundle(t *testing.T) {
 }
 
 func Test_GetLocalizedPart(t *testing.T) {
-	var expectedLocalizedContent = "This is a test content."
 	var langFiles []string
 	langFiles = append(langFiles, langFile)
 
@@ -36,7 +39,10 @@ func Test_GetLocalizedPart(t *testing.T) {
 		t.Fatalf("Failed to create bundle: %s", err.Error())
 	}
 
-	localizedContent, _ := getLocalizedContentPart(locBundle, "TestContentInjection", locale, nil)
+	// For each content that needs to be filled, add localized content to a temp variable "content"
+	content := make(map[string]interface{})
+	content["TestCreatorName"] = TestCreatorName
+	localizedContent, _ := getLocalizedContentPart(locBundle, "TestContentInjection", locale, content)
 
 	if localizedContent != expectedLocalizedContent {
 		t.Fatalf("Wrong localized content, expecting %s but found %s", expectedLocalizedContent, localizedContent)
@@ -55,13 +61,15 @@ func Test_ExecuteTemplate(t *testing.T) {
 	}
 
 	// Create Test Template
-	temp, err := templates.NewTestTemplate(templatesPath)
+	temp, err := templates.NewTemplate(templatesPath, models.TemplateNameTest)
+
 	if temp == nil {
 		t.Fatalf("Failed to create test template: %s", err.Error())
 	}
 
 	// For each content that needs to be filled, add localized content to a temp variable "content"
 	content := make(map[string]interface{})
+	content["TestCreatorName"] = TestCreatorName
 	fillTemplate(temp, locBundle, locale, content)
 
 	// Execute the template with provided content
@@ -78,5 +86,4 @@ func Test_ExecuteTemplate(t *testing.T) {
 	if body != expectedBody {
 		t.Fatalf("Compiled body is not the one expected (see below): \n %s \n %s", body, string(expectedBody))
 	}
-
 }
