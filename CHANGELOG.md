@@ -10,7 +10,7 @@ This API sends notifications to users for things like forgotten passwords, initi
 ## [Unreleased]
 
 ### Added
-- PT-636 Add a new route in hydrophone for testing email sending
+- PT-636 Add a new route for sanity check email to ensure configuration is allowing emails to actually be sent
 
 ## 0.4.0 - 2019-07-31
 ### Added

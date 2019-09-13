@@ -11,7 +11,7 @@ export TIDEPOOL_HYDROPHONE_ENV='{
     "shoreline": {
         "serviceSpec": { "type": "static", "hosts": ["http://localhost:9107"] },
         "name": "hydrophone-local",
-        "secret": "This needs to be the same secret everywhere. YaHut75NsK1f9UKUXuWqxNN0RUwHFBCy",
+        "secret": "",
         "tokenRefreshInterval": "1h"
     }
 }'
@@ -31,16 +31,17 @@ export TIDEPOOL_HYDROPHONE_SERVICE='{
         "certFile": "config/cert.pem"
     },
     "mongo": {
-        "connectionString": "mongodb://localhost/confirm"
+        "connectionString": "mongodb://user:password@localhost:27017/confirm?authSource=admin"
     },
     "hydrophone" : {
-        "serverSecret": "This needs to be the same secret everywhere. YaHut75NsK1f9UKUXuWqxNN0RUwHFBCy",
+        "serverSecret": "",
         "webUrl": "http://localhost:3000",
         "supportUrl": "mailto:yourloops@diabeloop.fr",
         "assetUrl": "https://s3-eu-west-1.amazonaws.com/com.diabeloop.public-assets",
         "i18nTemplatesPath": "/go/src/github.com/tidepool-org/hydrophone/templates",
         "allowPatientResetPassword": true,
         "patientPasswordResetUrl": "https://diabeloop.zendesk.com/hc/articles/360021365373"
+        "testEmail": "machin@bidule.fr"
     },
     "sesEmail" : {
         "region":"eu-west-1",

@@ -24,8 +24,8 @@ func (a *Api) sendSanityCheckEmail(res http.ResponseWriter, req *http.Request, v
 		return
 	}
 
-	// Valid valid email address is found
-	re := regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	// Valid email address is found
+	re := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 
 	if recipient == "" || !re.MatchString(recipient) {
 		log.Printf("No valid email for sanity check is found")

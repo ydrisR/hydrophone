@@ -1,6 +1,20 @@
 Hydrophone Dev Docs
 ===
 
+# Diabeloop added routes
+
+The below routes are added by Diabeloop to extend Hydrophone@tidepool service.
+
+## /inform
+
+This route is used to send an informative email to the recipient to let him know a patient account has been created for him. This is used for autoconfirmation of patient account creation from the DBL handset.
+
+## /sanity_check
+
+This route is sending a test email to ensure everything is setup for Hydrophone to properly send emails. This is typically used for testing email sending in production after a deployment has been made.
+
+Environment variable _TIDEPOOL_HYDROPHONE_SERVICE/hydrophone/testEmail_ has to be setup with an email address to receive the test emails.
+
 # Configuration
 
 See [.vscode/launch.json.template](../.vscode/launch.json.template) or [env.sh](../env.sh) for examples.
@@ -13,14 +27,12 @@ Contains configuration about the stack where Hydrophone is running.
 
 Contains configuration necessary to run Hydrophone as a microservice.
 
-### sesEmail
+### mongo
 
 This configuration item is a JSON string that uses the following:
-- _fromAddress_: the email address to be used as the email sender
-- _region_: the AWS region to be used for AWS SES service
-- _serverEndpoint_: (if present) this will be used to override the AWS SES default endpoint (can be used in conjunction with MockServer for example) 
+- _connectionString_: the connection string to MongoDB, e.g. mongodb://<<user_personal>>:<<password_personal>>@localhost:27017/confirm?authSource=admin
 
-**!!! WARNING !!! Since last Tidepool integration, AWS Credentials to send emails are not used here anymore. See [below](#aws-credentials).**
+### service
 
 ### hydrophone
 
@@ -32,6 +44,16 @@ This configuration item is a JSON string that uses the following:
 - _i18nTemplatesPath_: where the HTML templates for emails reside
 - _allowPatientResetPassword_: toggle to allow/disallow patient to reset their password (if disallowed, a specific mail is sent to the patient)
 - _patientPasswordResetUrl_: URL where the instructions for the patient to reset his email are
+- _testEmail_: email address to be used for sending sanity check emails
+
+### sesEmail
+
+This configuration item is a JSON string that uses the following:
+- _fromAddress_: the email address to be used as the email sender
+- _region_: the AWS region to be used for AWS SES service
+- _serverEndpoint_: (if present) this will be used to override the AWS SES default endpoint (can be used in conjunction with MockServer for example) 
+
+**!!! WARNING !!! Since last Tidepool integration, AWS Credentials to send emails are not used here anymore. See [below](#aws-credentials).**
   
 # AWS Credentials
 
