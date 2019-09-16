@@ -1,22 +1,16 @@
 # Development
-FROM golang:1.11.4-alpine AS development
-
-WORKDIR /go/src/github.com/tidepool-org/hydrophone
-
-COPY . .
+FROM golang:1.12-alpine AS development
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk add build-base git cyrus-sasl-dev rsync
 
-RUN go get -u github.com/golang/dep/cmd/dep
+ENV GO111MODULE on
 
-RUN  dos2unix build.sh && ./build.sh && \
-     dos2unix test.sh && \
-     dos2unix env.sh && \
-     dos2unix artifact.sh && \
-     dos2unix start.sh && \
-     dos2unix version.sh
+WORKDIR /go/src/github.com/mdblp/hydrophone
+COPY . .
+RUN go get
+RUN  ./build.sh
 
 CMD ["./dist/hydrophone"]
 
@@ -27,15 +21,15 @@ RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk add --no-cache ca-certificates && \
 	apk add --no-cache libsasl	&& \
-    adduser -D tidepool
+    adduser -D mdblp
 
-WORKDIR /home/tidepool
+WORKDIR /home/mdblp
 
-USER tidepool
+USER mdblp
 
-COPY --from=development --chown=tidepool /go/src/github.com/tidepool-org/hydrophone/dist/hydrophone .
-COPY --chown=tidepool templates/html ./templates/html/
-COPY --chown=tidepool templates/locales ./templates/locales/
-COPY --chown=tidepool templates/meta ./templates/meta/
+COPY --from=development --chown=mdblp /go/src/github.com/mdblp/hydrophone/dist/hydrophone .
+COPY --chown=mdblp templates/html ./templates/html/
+COPY --chown=mdblp templates/locales ./templates/locales/
+COPY --chown=mdblp templates/meta ./templates/meta/
 
 CMD ["./hydrophone"]

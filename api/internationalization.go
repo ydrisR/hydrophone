@@ -23,6 +23,8 @@ const (
 	HEADER_LANGUAGE = "Accept-Language"
 )
 
+var defaultLanguage = language.English
+
 // InitI18n initializes the internationalization objects needed by the api
 // Ensure at least en.yaml is present in the folder specified by TIDEPOOL_HYDROPHONE_SERVICE environment variable
 func (a *Api) InitI18n(templatesPath string) {
@@ -36,11 +38,10 @@ func (a *Api) InitI18n(templatesPath string) {
 
 	// Create a Bundle to use for the lifetime of your application
 	locBundle, err := createLocalizerBundle(langFiles)
-
 	if err != nil {
 		log.Printf("Error initialising localization, %v", err)
 	} else {
-		log.Printf("Localizer bundle created with default language: %s", locBundle.DefaultLanguage.String())
+		log.Printf("Localizer bundle created with default language: %s", defaultLanguage.String())
 	}
 
 	a.LanguageBundle = locBundle
@@ -49,7 +50,7 @@ func (a *Api) InitI18n(templatesPath string) {
 // createLocalizerBundle reads language files and registers them in i18n bundle
 func createLocalizerBundle(langFiles []string) (*i18n.Bundle, error) {
 	// Bundle stores a set of messages
-	bundle := &i18n.Bundle{DefaultLanguage: language.English}
+	bundle := i18n.NewBundle(defaultLanguage)
 
 	// Enable bundle to understand yaml
 	bundle.RegisterUnmarshalFunc("yaml", yaml.Unmarshal)

@@ -47,13 +47,24 @@ func NewSesNotifier(cfg *SesNotifierConfig) (*SesNotifier, error) {
 			}, nil
 		}
 
+		if service == endpoints.Ec2metadataServiceID && cfg.Endpoint != "" {
+			return endpoints.ResolvedEndpoint{
+				URL:           cfg.Endpoint,
+				SigningRegion: "custom-signing-region",
+			}, nil
+		}
+
 		return endpoints.DefaultResolver().EndpointFor(service, region, optFns...)
 	}
 
-	sess := session.Must(session.NewSession(&aws.Config{
-		Region:           aws.String(cfg.Region),
-		EndpointResolver: endpoints.ResolverFunc(myCustomResolver),
-	}))
+	awsConfig := aws.NewConfig().
+		WithRegion(cfg.Region).
+		WithEndpoint(cfg.Endpoint).
+		WithEndpointResolver(endpoints.ResolverFunc(myCustomResolver)).
+		WithCredentialsChainVerboseErrors(true).
+		WithLogLevel(aws.LogDebug)
+
+	sess := session.Must(session.NewSession(awsConfig))
 
 	// Verify whether we have actual credentials (for information tracing)
 	// It is looking for credentials in this order:
@@ -112,9 +123,10 @@ func (c *SesNotifier) Send(to []string, subject string, msg string) (int, string
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
 			return http.StatusInternalServerError, aerr.Error()
-		} else {
-			return http.StatusInternalServerError, err.Error()
 		}
+
+		return http.StatusInternalServerError, err.Error()
 	}
+
 	return http.StatusOK, result.String()
 }
