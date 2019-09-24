@@ -41,7 +41,6 @@ export TIDEPOOL_HYDROPHONE_SERVICE='{
         "i18nTemplatesPath": "/go/src/github.com/tidepool-org/hydrophone/templates",
         "allowPatientResetPassword": true,
         "patientPasswordResetUrl": "https://diabeloop.zendesk.com/hc/articles/360021365373"
-        "testEmail": "machin@bidule.fr"
     },
     "sesEmail" : {
         "region":"eu-west-1",

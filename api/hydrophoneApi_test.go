@@ -107,7 +107,6 @@ type (
 		token      string
 		respCode   int
 		response   testJSONObject
-		testEmail  string
 	}
 	// These two types make it easier to define blobs of json inline.
 	// We don't use the types defined by the API because we want to

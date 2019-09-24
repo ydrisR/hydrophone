@@ -40,7 +40,6 @@ type (
 		I18nTemplatesPath         string `json:"i18nTemplatesPath"`         // where are the templates located?
 		AllowPatientResetPassword bool   `json:"allowPatientResetPassword"` // true means that patients can reset their password, false means that only clinicianc can reset their password
 		PatientPasswordResetURL   string `json:"patientPasswordResetUrl"`   // URL of the help web site that is used to give instructions to reset password for patients
-		TestEmail                 string `json:"testEmail"`                 // Email to be used as recipient for send test
 	}
 
 	group struct {
@@ -126,7 +125,7 @@ func (a *Api) SetHandlers(prefix string, rtr *mux.Router) {
 
 	rtr.HandleFunc("/status", a.GetStatus).Methods("GET")
 
-	rtr.Handle("/sanity_check", varsHandler(a.sendSanityCheckEmail)).Methods("POST")
+	rtr.Handle("/sanity_check/{userid}", varsHandler(a.sendSanityCheckEmail)).Methods("POST")
 
 	// POST /confirm/send/signup/:userid
 	// POST /confirm/send/forgot/:useremail

@@ -13,44 +13,35 @@ import (
 func TestSanityCheckResponds(t *testing.T) {
 
 	tests := []toTest{
+
 		{
-			// no test email in config
-			method:    "POST",
-			url:       "/sanity_check",
-			token:     "any.token.will.do.because.of.how.shoreline.mock.is.built",
-			testEmail: "",
-			respCode:  500,
+			// if you leave off the /{userid}, it goes 404
+			method:   "POST",
+			url:      "/sanity_check",
+			token:    testing_token_uid1,
+			respCode: 404,
 		},
 		{
-			// malformed email in config
-			method:    "POST",
-			url:       "/sanity_check",
-			token:     "any.token.will.do.because.of.how.shoreline.mock.is.built",
-			testEmail: "ff@ss",
-			respCode:  500,
+			// need a token or get 401
+			returnNone: true,
+			method:     "POST",
+			url:        "/sanity_check/" + testing_uid1,
+			respCode:   401,
 		},
 		{
-			// malformed email in config
-			method:    "POST",
-			url:       "/sanity_check",
-			token:     "any.token.will.do.because.of.how.shoreline.mock.is.built",
-			testEmail: "ffss.com",
-			respCode:  500,
+			// wrong user goes 400
+			returnNone: true,
+			method:     "POST",
+			url:        "/sanity_check/NotFound",
+			token:      testing_token_uid1,
+			respCode:   400,
 		},
 		{
-			// return 401 if no session token is present
-			method:    "POST",
-			url:       "/sanity_check",
-			testEmail: "ff@ss.com",
-			respCode:  401,
-		},
-		{
-			// return 200 if everything is in place
-			method:    "POST",
-			url:       "/sanity_check",
-			testEmail: "ff@ss.com",
-			token:     "any.token.will.do.because.of.how.shoreline.mock.is.built",
-			respCode:  200,
+			// everything OK
+			method:   "POST",
+			url:      "/sanity_check/" + testing_uid1,
+			token:    testing_token_uid1,
+			respCode: 200,
 		},
 	}
 
@@ -59,10 +50,13 @@ func TestSanityCheckResponds(t *testing.T) {
 		//fresh each time
 		var testRtr = mux.NewRouter()
 
-		FAKE_CONFIG.TestEmail = test.testEmail
-
-		hydrophone := InitApi(FAKE_CONFIG, mockStore, mockNotifier, mockShoreline, mockGatekeeper, mockMetrics, mockSeagull, mockTemplates)
-		hydrophone.SetHandlers("", testRtr)
+		if test.returnNone {
+			hydrophoneFindsNothing := InitApi(FAKE_CONFIG, mockStoreEmpty, mockNotifier, mockShoreline, mockGatekeeper, mockMetrics, mockSeagull, mockTemplates)
+			hydrophoneFindsNothing.SetHandlers("", testRtr)
+		} else {
+			hydrophone := InitApi(FAKE_CONFIG, mockStore, mockNotifier, mockShoreline, mockGatekeeper, mockMetrics, mockSeagull, mockTemplates)
+			hydrophone.SetHandlers("", testRtr)
+		}
 
 		var body = &bytes.Buffer{}
 		// build the body only if there is one defined in the test

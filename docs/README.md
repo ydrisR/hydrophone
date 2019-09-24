@@ -5,15 +5,14 @@ Hydrophone Dev Docs
 
 The below routes are added by Diabeloop to extend Hydrophone@tidepool service.
 
-## /inform
+## POST /inform
 
 This route is used to send an informative email to the recipient to let him know a patient account has been created for him. This is used for autoconfirmation of patient account creation from the DBL handset.
 
-## /sanity_check
+## POST /sanity_check/{userid}
 
-This route is sending a test email to ensure everything is setup for Hydrophone to properly send emails. This is typically used for testing email sending in production after a deployment has been made.
-
-Environment variable _TIDEPOOL_HYDROPHONE_SERVICE/hydrophone/testEmail_ has to be setup with an email address to receive the test emails.
+This route is sending a test email to {userid} to ensure everything is setup for Hydrophone to properly send emails. This is typically used for testing email sending in production after a deployment has been made. 
+The {userid} param must match a session token given in Headers as "x-tidepool-session-token".
 
 # Configuration
 
@@ -44,7 +43,6 @@ This configuration item is a JSON string that uses the following:
 - _i18nTemplatesPath_: where the HTML templates for emails reside
 - _allowPatientResetPassword_: toggle to allow/disallow patient to reset their password (if disallowed, a specific mail is sent to the patient)
 - _patientPasswordResetUrl_: URL where the instructions for the patient to reset his email are
-- _testEmail_: email address to be used for sending sanity check emails
 
 ### sesEmail
 
