@@ -26,10 +26,11 @@ type (
 	// Config is the configuration for the service
 	Config struct {
 		clients.Config
-		Service disc.ServiceListing  `json:"service"`
-		Mongo   mongo.Config         `json:"mongo"`
-		Api     api.Config           `json:"hydrophone"`
-		Mail    sc.SesNotifierConfig `json:"sesEmail"`
+		Service disc.ServiceListing   `json:"service"`
+		Mongo   mongo.Config          `json:"mongo"`
+		Api     api.Config            `json:"hydrophone"`
+		Ses     sc.SesNotifierConfig  `json:"sesEmail"`
+		Smtp    sc.SmtpNotifierConfig `json:"smtpEmail"`
 	}
 )
 
@@ -43,11 +44,11 @@ func main() {
 
 	region, found := os.LookupEnv("REGION")
 	if found {
-		config.Mail.Region = region
+		config.Ses.Region = region
 	}
 
-	if config.Mail.Region == "" {
-		config.Mail.Region = "us-west-2"
+	if config.Ses.Region == "" {
+		config.Ses.Region = "us-west-2"
 	}
 
 	// server secret may be passed via a separate env variable to accomodate easy secrets injection via Kubernetes
@@ -113,7 +114,7 @@ func main() {
 	 * hydrophone setup
 	 */
 	store := sc.NewMongoStoreClient(&config.Mongo)
-	mail, err := sc.NewSesNotifier(&config.Mail)
+	mail, err := sc.NewSesNotifier(&config.Ses)
 
 	if err != nil {
 		log.Fatal(err)
