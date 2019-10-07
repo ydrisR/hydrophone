@@ -42,6 +42,7 @@ export TIDEPOOL_HYDROPHONE_SERVICE='{
         "allowPatientResetPassword": true,
         "patientPasswordResetUrl": "https://diabeloop.zendesk.com/hc/articles/360021365373"
     },
+    "notifierType": "ses",
     "sesEmail" : {
         "region":"eu-west-1",
         "fromAddress": "${SUPPORT_EMAIL_ADDR}"
