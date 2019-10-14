@@ -1,7 +1,7 @@
 [[constraint]]
   name = "github.com/tidepool-org/go-common"
   source = "github.com/mdblp/go-common"
-  branch = "master"
+  branch = "feature/PT-727_Enhance_Status_Report"
 
 [[constraint]]
   name = "github.com/nicksnyder/go-i18n"

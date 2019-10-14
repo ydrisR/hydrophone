@@ -17,6 +17,7 @@ import (
 	"github.com/tidepool-org/go-common/clients/highwater"
 	"github.com/tidepool-org/go-common/clients/mongo"
 	"github.com/tidepool-org/go-common/clients/shoreline"
+	"github.com/tidepool-org/go-common/clients/version"
 	"github.com/tidepool-org/hydrophone/api"
 	sc "github.com/tidepool-org/hydrophone/clients"
 	"github.com/tidepool-org/hydrophone/templates"
@@ -35,8 +36,17 @@ type (
 	}
 )
 
+// Variables to be injected at build time
+var (
+	ReleaseNumber string //Release number. i.e. 1.2.3
+	FullCommit    string //Full commit id. i.e. e0c73b95646559e9a3696d41711e918398d557fb
+)
+
 func main() {
 	var config Config
+	// Set version number in the version package of go-common (used by the status)
+	version.VersionBase = ReleaseNumber
+	version.VersionFullCommit = FullCommit
 
 	// Load configuration from environment variables
 	if err := common.LoadEnvironmentConfig([]string{"TIDEPOOL_HYDROPHONE_ENV", "TIDEPOOL_HYDROPHONE_SERVICE"}, &config); err != nil {
