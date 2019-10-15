@@ -15,6 +15,7 @@ import (
 	"github.com/tidepool-org/go-common/clients/highwater"
 	"github.com/tidepool-org/go-common/clients/shoreline"
 	"github.com/tidepool-org/go-common/clients/status"
+	"github.com/tidepool-org/go-common/clients/version"
 	"github.com/tidepool-org/hydrophone/clients"
 	"github.com/tidepool-org/hydrophone/models"
 )
@@ -120,6 +121,8 @@ type (
 
 func TestGetStatus_StatusOk(t *testing.T) {
 
+	version.VersionBase = "2.0.1"
+	version.VersionFullCommit = "azertyuiop123"
 	request, _ := http.NewRequest("GET", "/status", nil)
 	response := httptest.NewRecorder()
 
@@ -132,10 +135,18 @@ func TestGetStatus_StatusOk(t *testing.T) {
 		t.Fatalf("Resp given [%d] expected [%d] ", response.Code, http.StatusOK)
 	}
 
+	body, _ := ioutil.ReadAll(response.Body)
+
+	if string(body) != `{"code":200,"reason":"OK","version":"2.0.1+azertyuiop123"}` {
+		t.Fatalf("Message given [%s] expected [%s] ", string(body), "OK")
+	}
+
 }
 
 func TestGetStatus_StatusInternalServerError(t *testing.T) {
 
+	version.VersionBase = "2.0.1"
+	version.VersionFullCommit = "azertyuiop123"
 	request, _ := http.NewRequest("GET", "/status", nil)
 	response := httptest.NewRecorder()
 
@@ -150,7 +161,7 @@ func TestGetStatus_StatusInternalServerError(t *testing.T) {
 
 	body, _ := ioutil.ReadAll(response.Body)
 
-	if string(body) != `{"code":500,"reason":"Session failure"}` {
+	if string(body) != `{"code":500,"reason":"Session failure","version":"2.0.1+azertyuiop123"}` {
 		t.Fatalf("Message given [%s] expected [%s] ", string(body), "Session failure")
 	}
 }
