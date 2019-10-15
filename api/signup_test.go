@@ -9,11 +9,14 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
+	"github.com/tidepool-org/go-common/clients/version"
 	"github.com/tidepool-org/hydrophone/templates"
 )
 
 func TestSignupResponds(t *testing.T) {
 
+	version.VersionBase = "2.0.1"
+	version.VersionFullCommit = "azertyuiop123"
 	tests := []toTest{
 		{
 			// if you leave off the userid, it fails
@@ -76,9 +79,10 @@ func TestSignupResponds(t *testing.T) {
 			url:      "/accept/signup/WithoutPassword",
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1001),
-				"reason": "User does not have a password",
+				"code":    float64(409),
+				"error":   float64(1001),
+				"reason":  "User does not have a password",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
@@ -90,9 +94,10 @@ func TestSignupResponds(t *testing.T) {
 			},
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1002),
-				"reason": "Password is missing",
+				"code":    float64(409),
+				"error":   float64(1002),
+				"reason":  "Password is missing",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
@@ -105,9 +110,10 @@ func TestSignupResponds(t *testing.T) {
 			},
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1003),
-				"reason": "Password specified is invalid",
+				"code":    float64(409),
+				"error":   float64(1003),
+				"reason":  "Password specified is invalid",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
@@ -119,9 +125,10 @@ func TestSignupResponds(t *testing.T) {
 			},
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1004),
-				"reason": "Birthday is missing",
+				"code":    float64(409),
+				"error":   float64(1004),
+				"reason":  "Birthday is missing",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
@@ -134,9 +141,10 @@ func TestSignupResponds(t *testing.T) {
 			},
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1005),
-				"reason": "Birthday specified is invalid",
+				"code":    float64(409),
+				"error":   float64(1005),
+				"reason":  "Birthday specified is invalid",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
@@ -149,9 +157,10 @@ func TestSignupResponds(t *testing.T) {
 			},
 			respCode: 409,
 			response: testJSONObject{
-				"code":   float64(409),
-				"error":  float64(1006),
-				"reason": "Birthday specified does not match patient birthday",
+				"code":    float64(409),
+				"error":   float64(1006),
+				"reason":  "Birthday specified does not match patient birthday",
+				"version": "2.0.1+azertyuiop123",
 			},
 		},
 		{
