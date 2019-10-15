@@ -2,7 +2,7 @@
 
 
 [[projects]]
-  digest = "1:d4811b28c318a726c23775c47e7e44a84df4264168172771651c86c3e635c530"
+  digest = "1:0a241444cdda6de000e800733dfd417221dd35d65ee0d05d46c46e59ce573683"
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -25,6 +25,7 @@
     "aws/signer/v4",
     "internal/ini",
     "internal/sdkio",
+    "internal/sdkmath",
     "internal/sdkrand",
     "internal/sdkuri",
     "internal/shareddefaults",
@@ -36,10 +37,11 @@
     "private/protocol/xml/xmlutil",
     "service/ses",
     "service/sts",
+    "service/sts/stsiface",
   ]
   pruneopts = "UT"
-  revision = "1fbd98bfc4019214235f69e4863bad1147765c49"
-  version = "v1.19.43"
+  revision = "e40068abd62ea29db38cb7ca59bf6f58489343bf"
+  version = "v1.25.13"
 
 [[projects]]
   branch = "master"
@@ -56,12 +58,12 @@
   revision = "eeefdecb41b842af6dc652aaea4026e8403e62df"
 
 [[projects]]
-  digest = "1:3af6be4fee7c08f81f13d36f04ffb63ad4b6b5aaba12cce96095c7c2863d4912"
+  digest = "1:cbec35fe4d5a4fba369a656a8cd65e244ea2c743007d8f6c1ccb132acf9d1296"
   name = "github.com/gorilla/mux"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ed099d42384823742bba0bf9a72b53b55c9e2e38"
-  version = "v1.7.2"
+  revision = "00bdffe0f3c77e27d2cf6f5c70232a2d3e4d9c15"
+  version = "v1.7.3"
 
 [[projects]]
   digest = "1:bb81097a5b62634f3e9fec1014657855610c82d19b9a40c17612e32651e35dca"
@@ -84,7 +86,7 @@
 
 [[projects]]
   branch = "feature/PT-727_Enhance_Status_Report"
-  digest = "1:65f83eb476ef53702097e98fb6e00ea65bd022c0a12bdbbe31151ad6859edb7a"
+  digest = "1:1bb14a34dd30d2bf7029f94532b1c11796f0d68b1ec4f1fe9355b23ee2c89710"
   name = "github.com/tidepool-org/go-common"
   packages = [
     ".",
@@ -100,7 +102,7 @@
     "jepson",
   ]
   pruneopts = "UT"
-  revision = "d499646c640f80fb1c4dcf2d491393822fce0c0e"
+  revision = "9bb4601de798a63ea2c7e84ca7a4aa5de2f455eb"
   source = "github.com/mdblp/go-common"
 
 [[projects]]
@@ -119,12 +121,12 @@
   version = "v0.3.2"
 
 [[projects]]
-  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
+  digest = "1:59f10c1537d2199d9115d946927fe31165959a95190849c82ff11e05803528b0"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
-  version = "v2.2.2"
+  revision = "f221b8435cfb71e54062f6c6e99e9ade30b124d5"
+  version = "v2.2.4"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -147,6 +149,7 @@
     "github.com/tidepool-org/go-common/clients/mongo",
     "github.com/tidepool-org/go-common/clients/shoreline",
     "github.com/tidepool-org/go-common/clients/status",
+    "github.com/tidepool-org/go-common/clients/version",
     "golang.org/x/text/language",
     "gopkg.in/yaml.v2",
   ]

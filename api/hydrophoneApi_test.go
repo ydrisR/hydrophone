@@ -121,8 +121,9 @@ type (
 
 func TestGetStatus_StatusOk(t *testing.T) {
 
-	version.VersionBase = "2.0.1"
-	version.VersionFullCommit = "azertyuiop123"
+	version.ReleaseNumber = "1.2.3"
+	version.FullCommit = "e0c73b95646559e9a3696d41711e918398d557fb"
+
 	request, _ := http.NewRequest("GET", "/status", nil)
 	response := httptest.NewRecorder()
 
@@ -137,7 +138,7 @@ func TestGetStatus_StatusOk(t *testing.T) {
 
 	body, _ := ioutil.ReadAll(response.Body)
 
-	if string(body) != `{"code":200,"reason":"OK","version":"2.0.1+azertyuiop123"}` {
+	if string(body) != `{"status":{"code":200,"reason":"OK"},"version":"1.2.3+e0c73b95646559e9a3696d41711e918398d557fb"}` {
 		t.Fatalf("Message given [%s] expected [%s] ", string(body), "OK")
 	}
 
@@ -145,8 +146,9 @@ func TestGetStatus_StatusOk(t *testing.T) {
 
 func TestGetStatus_StatusInternalServerError(t *testing.T) {
 
-	version.VersionBase = "2.0.1"
-	version.VersionFullCommit = "azertyuiop123"
+	version.ReleaseNumber = "1.2.3"
+	version.FullCommit = "e0c73b95646559e9a3696d41711e918398d557fb"
+
 	request, _ := http.NewRequest("GET", "/status", nil)
 	response := httptest.NewRecorder()
 
@@ -161,7 +163,7 @@ func TestGetStatus_StatusInternalServerError(t *testing.T) {
 
 	body, _ := ioutil.ReadAll(response.Body)
 
-	if string(body) != `{"code":500,"reason":"Session failure","version":"2.0.1+azertyuiop123"}` {
+	if string(body) != `{"status":{"code":500,"reason":"Session failure"},"version":"1.2.3+e0c73b95646559e9a3696d41711e918398d557fb"}` {
 		t.Fatalf("Message given [%s] expected [%s] ", string(body), "Session failure")
 	}
 }

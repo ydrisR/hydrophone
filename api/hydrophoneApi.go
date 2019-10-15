@@ -176,14 +176,14 @@ func (h varsHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 }
 
 func (a *Api) GetStatus(res http.ResponseWriter, req *http.Request) {
-	var s status.Status
+	var s status.ApiStatus
 	if err := a.Store.Ping(); err != nil {
 		log.Printf("Error getting status [%v]", err)
-		s = status.NewStatus(http.StatusInternalServerError, err.Error())
+		s = status.NewApiStatus(http.StatusInternalServerError, err.Error())
 	} else {
-		s = status.NewStatus(http.StatusOK, "")
+		s = status.NewApiStatus(http.StatusOK, "OK")
 	}
-	a.sendModelAsResWithStatus(res, s, s.Code)
+	a.sendModelAsResWithStatus(res, s, s.Status.Code)
 	return
 }
 
