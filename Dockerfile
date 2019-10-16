@@ -11,12 +11,7 @@ RUN apk --no-cache update && \
 
 RUN go get -u github.com/golang/dep/cmd/dep
 
-RUN  dos2unix build.sh && ./build.sh && \
-     dos2unix test.sh && \
-     dos2unix env.sh && \
-     dos2unix artifact.sh && \
-     dos2unix start.sh && \
-     dos2unix version.sh
+RUN  ./build.sh
 
 CMD ["./dist/hydrophone"]
 
