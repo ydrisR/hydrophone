@@ -3,10 +3,6 @@
 rm -rf dist
 mkdir dist
 
-echo "Run dep ensure"
-$GOPATH/bin/dep ensure
-$GOPATH/bin/dep check
-
 # generate version number
 if [ -n "${TRAVIS_TAG:-}" ]; then
     VERSION_BASE=${TRAVIS_TAG}  
@@ -16,7 +12,7 @@ fi
 VERSION_SHORT_COMMIT=$(git rev-parse --short HEAD)
 VERSION_FULL_COMMIT=$(git rev-parse HEAD)
 
-GO_COMMON_PATH="github.com/tidepool-org/hydrophone/vendor/github.com/tidepool-org/go-common"
+GO_COMMON_PATH="github.com/tidepool-org/go-common"
 	
 echo "Build hydrophone $VERSION_BASE+$VERSION_FULL_COMMIT"
 go build -ldflags "-X $GO_COMMON_PATH/clients/version.ReleaseNumber=$VERSION_BASE \

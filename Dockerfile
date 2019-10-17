@@ -1,5 +1,6 @@
 # Development
-FROM golang:1.11.4-alpine AS development
+FROM golang:1.12.7-alpine AS development
+ENV GO111MODULE=on
 
 WORKDIR /go/src/github.com/tidepool-org/hydrophone
 
@@ -8,8 +9,6 @@ COPY . .
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk add build-base git cyrus-sasl-dev rsync
-
-RUN go get -u github.com/golang/dep/cmd/dep
 
 RUN  ./build.sh
 
