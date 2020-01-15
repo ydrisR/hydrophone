@@ -117,7 +117,6 @@ func InitApiWithI18n(
 		templates:      templates,
 		LanguageBundle: nil,
 	}
-	theAPI.InitI18n(cfg.I18nTemplatesPath)
 	return theAPI
 }
 
@@ -289,19 +288,14 @@ func (a *Api) createAndSendNotification(conf *models.Confirmation, content map[s
 		return false
 	}
 
-	// Add dynamic content to the template
-	fillTemplate(template, a.LanguageBundle, lang, content)
-
 	// Email information (subject and body) are retrieved from the "executed" email template
 	// "Execution" adds dynamic content using text/template lib
-	_, body, err := template.Execute(content)
+	subject, body, err := template.Execute(content, lang)
 
 	if err != nil {
 		log.Printf("Error executing email template '%s'", err)
 		return false
 	}
-	// Get localized subject of email
-	subject, err := getLocalizedSubject(a.LanguageBundle, template.Subject(), lang)
 
 	// Finally send the email
 	if status, details := a.notifier.Send([]string{conf.Email}, subject, body); status != http.StatusOK {
