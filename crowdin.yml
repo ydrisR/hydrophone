@@ -1,5 +1,5 @@
 files:
-  - source: /templates/locales/*.yaml
+  - source: /templates/locales/en.yaml
     ignore:
       - /templates/locales/test*.yaml
     translation: /templates/locales/%two_letters_code%.yaml
