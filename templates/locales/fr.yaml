@@ -48,13 +48,13 @@ SignupClinicHello: "Bonjour,"
 SignupClinicCongrats: "Félicitations pour la création de votre compte YourLoops !"
 SignupClinicAction: "Nous avons simplement besoin d'une dernière action de votre part (promis) :"
 SignupClinicVerify: "Vérifier votre compte"
-#Signup Custodial
+#Signup Custodial => SUPPRIMER
 #(email to ask patient spawn by an existing clinician for verification of email and take ownership of his account)
 SignupCustodialConfirmationSubject: "Vérification de votre compte Tidepool"
 SignupCustodialHello: "Bonjour,"
 SignupCustodialCongrats: "Félicitations pour la création de votre compte YourLoops !"
 SignupCustodialVerify: "Vérifier mon compte"
-#Signup Custodial Clinic
+#Signup Custodial Clinic => SUPPRIMER
 #(email to ask clinician spawn by an existing clinician for verification of email and take ownership of his account)
 SignupCustodialClinicConfirmationSubject: "Suivi Diabète - Réclamer votre compte"
 SignupCustodialClinicHello: "Bonjour {{ .FullName }} !"
@@ -65,4 +65,3 @@ SignupCustodialClinicClaim: "Réclamer mon compte"
 InformationSubject: "Information YourLoops"
 PatientInformation: "L'équipe Diabeloop vous félicite pour l'activation de votre dispositif médical et la création de votre compte YourLoops."
 PatientLogin: "Se Connecter à YourLoops"
-
