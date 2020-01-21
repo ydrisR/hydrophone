@@ -2,13 +2,13 @@
 #Footer
 #(for all emails)
 FooterGetSupport: "SUPPORT"
-FooterSincerely: "Sincerely,"
+FooterSincerely: "Mit freundlichen Grüßen"
 FooterSignature: "Das Diabeloop-Team"
 #No account
 #(email for those that requested password reset but did not create their account before)
-NoAccountSubject: "Password reset for your YourLoops account"
-NoAccountHello: "Hello,"
-NoAccountNoAccount: "You asked to change your YourLoops password but no account has been created yet with this email address."
+NoAccountSubject: "Passwort zurücksetzen für Ihr YourLoops-Konto"
+NoAccountHello: "Hallo,"
+NoAccountNoAccount: "Sie haben gebeten, Ihr YourLoops-Passwort zu ändern, aber es wurde noch kein Konto mit dieser E-Mail-Adresse erstellt."
 NoAccountClick: "Please click on the link below if you would like to create an account."
 NoAccountSignUp: "SIGN UP"
 #Password Reset
