@@ -3,7 +3,7 @@
 #(for all emails)
 FooterGetSupport: "SUPPORT"
 FooterSincerely: "Cordialement,"
-FooterSignature: "L'équipe Diabeloop"
+FooterSignature: "L’équipe Diabeloop"
 #No account
 #(email for those that requested password reset but did not create their account before)
 NoAccountSubject: "Réinitialisation de votre mot de passe YourLoops"
